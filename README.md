@@ -81,9 +81,3 @@ python -m pet_report.cli eval
 pytest -q
 ```
 
-## 生产建议
-
-- 线上图片/PDF 建议 `PET_REPORT_OCR_BACKEND=paddleocr`。
-- 低置信 OCR 字段不要直接进入诊断结论，工程会保留 `confidence` 并输出 `quality_warnings`。
-- 宠物报告参考范围因医院、设备和试剂不同而变化，本项目的默认参考区间用于工程样例，生产应替换为医院/设备版本化知识库。
-- 高风险输出应接入人工复核或转诊流程。
