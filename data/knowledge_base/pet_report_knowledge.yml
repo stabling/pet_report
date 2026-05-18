@@ -1,0 +1,32 @@
+version: "2026-05"
+documents:
+  - id: "renal_azotemia"
+    title: "肌酐、尿素氮升高与肾脏/脱水风险"
+    source: "internal_vet_review_sample"
+    tags: ["CREA", "BUN", "kidney", "dehydration"]
+    content: "肌酐和尿素氮同时升高时，需要结合饮水、尿量、脱水、尿检、SDMA、超声和既往病史判断。若伴随无尿、尿闭、精神沉郁或呕吐，应优先排查急性肾损伤、尿路梗阻或严重脱水。"
+  - id: "liver_enzymes"
+    title: "ALT/AST/ALP 升高的解读边界"
+    source: "internal_vet_review_sample"
+    tags: ["ALT", "AST", "ALP", "liver"]
+    content: "ALT、AST、ALP 升高提示肝细胞损伤、胆汁淤积、肌肉损伤或药物影响等可能性，不能仅凭单项指标确诊肝病，应结合胆红素、GGT、腹部影像、用药史和临床症状。"
+  - id: "cbc_inflammation"
+    title: "白细胞升高与炎症/感染"
+    source: "internal_vet_review_sample"
+    tags: ["WBC", "infection", "inflammation"]
+    content: "白细胞升高常见于炎症、感染、应激或激素影响。需要结合中性粒细胞、体温、疼痛、食欲、影像或病原学检查判断，不宜直接推断具体感染部位。"
+  - id: "anemia_platelet"
+    title: "贫血与血小板降低风险"
+    source: "internal_vet_review_sample"
+    tags: ["HGB", "RBC", "PLT", "anemia", "bleeding"]
+    content: "血红蛋白或红细胞降低提示贫血可能；血小板显著降低时需关注出血风险。若出现牙龈苍白、黑便、皮下出血、虚弱或呼吸急促，应尽快就医。"
+  - id: "glucose_risk"
+    title: "血糖异常的风险边界"
+    source: "internal_vet_review_sample"
+    tags: ["GLU", "hypoglycemia", "diabetes"]
+    content: "低血糖可导致虚弱、抽搐甚至昏迷；持续高血糖需结合尿糖、酮体和饮水排尿变化评估糖尿病或应激性高血糖。危急血糖应尽快就医。"
+  - id: "ocr_quality"
+    title: "低置信 OCR 与报告解读安全"
+    source: "internal_engineering_policy"
+    tags: ["ocr", "safety", "quality"]
+    content: "低置信度 OCR、单位缺失、参考范围缺失或指标名无法归一时，应降低解读强度，提示用户上传清晰原图或补充医院原始报告，避免基于错误字段给出强结论。"

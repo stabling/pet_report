@@ -1,0 +1,89 @@
+# Pet Report Structuring：宠物报告解读与结构化服务
+
+这是一个完整可运行的宠物医疗报告结构化与解读工程，面向化验报告截图/PDF/文本输入，覆盖 OCR、字段归一、单位换算、参考区间匹配、异常指标解释、规则校验、风险约束、RAG 证据融合、API 服务、CLI、回归评测、Prometheus 指标与 Docker 部署。
+
+> 医疗安全说明：本项目用于宠物健康信息结构化和就诊沟通辅助，不替代兽医诊断、处方或急救处置。命中高风险规则时会输出“尽快就医/急诊”而不是普通护理建议。
+
+## 功能模块
+
+- **输入层**：支持纯文本、文件上传、图片/PDF 可选 OCR。
+- **开源 OCR 后端**：`text`、`tesseract`、`paddleocr` 三种后端，均通过环境变量选择。
+- **结构化 Schema**：宠物基础信息、报告来源、OCR 行、指标项、异常等级、风险标签、证据引用、最终解释。
+- **字段归一**：中文/英文/缩写别名映射，例如白细胞/WBC、肌酐/CREA、尿素氮/BUN、血糖/GLU。
+- **单位换算**：肌酐 mg/dL→µmol/L、BUN mg/dL→mmol/L、血糖 mg/dL→mmol/L 等。
+- **参考区间匹配**：按物种、指标、单位匹配参考范围，输出 low/high/critical 标记。
+- **组合解释**：对肾功能、肝酶、炎症、贫血、血小板、血糖等组合进行解释。
+- **风险前置**：尿闭、呼吸困难、抽搐、中毒、严重外伤、危急指标等直接进入急诊建议。
+- **RAG 证据融合**：从本地知识库检索指标解释与护理边界，为最终回答提供 citation。
+- **开源 LLM 后端**：默认规则引擎可离线运行；可切换到 Hugging Face Transformers + Qwen2.5 等本地开源模型。
+- **工程化能力**：FastAPI、CLI、Docker、环境变量配置、Prometheus 指标、trace_id、测试和评测样例。
+
+## 快速启动
+
+```bash
+cp .env.example .env
+pip install -e ".[dev]"
+python -m pet_report.cli analyze-text --text "犬 血常规: WBC 22.5 10^9/L, HGB 95 g/L, PLT 80 10^9/L"
+uvicorn pet_report.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Docker：
+
+```bash
+docker compose up --build
+```
+
+## 使用 PaddleOCR / 开源 LLM
+
+安装 OCR 依赖：
+
+```bash
+pip install -e ".[ocr]"
+PET_REPORT_OCR_BACKEND=paddleocr uvicorn pet_report.main:app --reload
+```
+
+使用本地 Hugging Face 模型：
+
+```bash
+pip install -e ".[llm]"
+export PET_REPORT_LLM_PROVIDER=transformers
+export PET_REPORT_HF_MODEL=Qwen/Qwen2.5-0.5B-Instruct
+uvicorn pet_report.main:app --reload
+```
+
+模型权重不会打包进工程，首次运行会由 Transformers 按模型名加载到本地缓存。无模型、无 GPU 时默认 `rule` 后端依然完整可跑通。
+
+## API 示例
+
+```bash
+curl -X POST http://127.0.0.1:8000/v1/reports/analyze \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "pet_profile": {"species": "dog", "age_years": 6, "weight_kg": 9.2},
+    "chief_complaint": "狗狗这两天呕吐，精神一般",
+    "report_text": "犬 生化 ALT 180 U/L AST 70 U/L CREA 185 umol/L BUN 12.4 mmol/L"
+  }'
+```
+
+文件上传：
+
+```bash
+curl -X POST http://127.0.0.1:8000/v1/reports/analyze-file \
+  -F 'species=dog' \
+  -F 'chief_complaint=猫尿不出来，精神差' \
+  -F 'file=@sample_report.txt'
+```
+
+## 回归评测
+
+```bash
+python -m pet_report.cli eval
+pytest -q
+```
+
+## 生产建议
+
+- 线上图片/PDF 建议 `PET_REPORT_OCR_BACKEND=paddleocr`。
+- 低置信 OCR 字段不要直接进入诊断结论，工程会保留 `confidence` 并输出 `quality_warnings`。
+- 宠物报告参考范围因医院、设备和试剂不同而变化，本项目的默认参考区间用于工程样例，生产应替换为医院/设备版本化知识库。
+- 高风险输出应接入人工复核或转诊流程。

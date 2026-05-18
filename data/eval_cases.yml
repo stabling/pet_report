@@ -1,0 +1,16 @@
+cases:
+  - id: "cbc_inflammation_anemia"
+    species: "dog"
+    text: "犬 血常规 WBC 24.5 10^9/L HGB 88 g/L PLT 120 10^9/L"
+    expected_codes: ["WBC", "HGB", "PLT"]
+    expected_risk_codes: []
+  - id: "renal_emergency_cat"
+    species: "cat"
+    text: "猫 生化 CREA 520 umol/L BUN 31 mmol/L 主诉 尿不出来 精神差"
+    expected_codes: ["CREA", "BUN"]
+    expected_risk_codes: ["urinary_obstruction", "critical_lab"]
+  - id: "liver_high_dog"
+    species: "dog"
+    text: "犬 生化 ALT 230 U/L AST 82 U/L ALP 160 U/L"
+    expected_codes: ["ALT", "AST", "ALP"]
+    expected_risk_codes: []

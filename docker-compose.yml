@@ -1,0 +1,9 @@
+services:
+  pet-report:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./runtime_data:/app/runtime_data

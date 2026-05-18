@@ -1,0 +1,2 @@
+[console_scripts]
+pet-report = pet_report.cli:main

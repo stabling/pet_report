@@ -1,0 +1,87 @@
+version: "2026-05"
+source: "engineering_sample_ranges_replace_in_production"
+metrics:
+  WBC:
+    display_name: "白细胞"
+    aliases: ["WBC", "白细胞", "白细胞计数", "白血球"]
+    default_unit: "10^9/L"
+    species:
+      dog: {low: 6.0, high: 17.0, unit: "10^9/L", critical_low: 2.0, critical_high: 35.0}
+      cat: {low: 5.5, high: 19.5, unit: "10^9/L", critical_low: 2.0, critical_high: 35.0}
+  RBC:
+    display_name: "红细胞"
+    aliases: ["RBC", "红细胞", "红细胞计数"]
+    default_unit: "10^12/L"
+    species:
+      dog: {low: 5.5, high: 8.5, unit: "10^12/L", critical_low: 3.0, critical_high: 10.0}
+      cat: {low: 5.0, high: 10.0, unit: "10^12/L", critical_low: 3.0, critical_high: 12.0}
+  HGB:
+    display_name: "血红蛋白"
+    aliases: ["HGB", "Hb", "血红蛋白", "血色素"]
+    default_unit: "g/L"
+    species:
+      dog: {low: 120, high: 180, unit: "g/L", critical_low: 70, critical_high: 220}
+      cat: {low: 80, high: 150, unit: "g/L", critical_low: 55, critical_high: 190}
+  PLT:
+    display_name: "血小板"
+    aliases: ["PLT", "血小板", "血小板计数"]
+    default_unit: "10^9/L"
+    species:
+      dog: {low: 150, high: 500, unit: "10^9/L", critical_low: 50, critical_high: 900}
+      cat: {low: 180, high: 550, unit: "10^9/L", critical_low: 50, critical_high: 900}
+  ALT:
+    display_name: "丙氨酸氨基转移酶"
+    aliases: ["ALT", "谷丙转氨酶", "丙氨酸氨基转移酶"]
+    default_unit: "U/L"
+    species:
+      dog: {low: 10, high: 125, unit: "U/L", critical_low: null, critical_high: 500}
+      cat: {low: 10, high: 100, unit: "U/L", critical_low: null, critical_high: 400}
+  AST:
+    display_name: "天门冬氨酸氨基转移酶"
+    aliases: ["AST", "谷草转氨酶", "天门冬氨酸氨基转移酶"]
+    default_unit: "U/L"
+    species:
+      dog: {low: 10, high: 50, unit: "U/L", critical_low: null, critical_high: 300}
+      cat: {low: 10, high: 80, unit: "U/L", critical_low: null, critical_high: 300}
+  ALP:
+    display_name: "碱性磷酸酶"
+    aliases: ["ALP", "ALKP", "碱性磷酸酶"]
+    default_unit: "U/L"
+    species:
+      dog: {low: 20, high: 150, unit: "U/L", critical_low: null, critical_high: 600}
+      cat: {low: 10, high: 90, unit: "U/L", critical_low: null, critical_high: 300}
+  CREA:
+    display_name: "肌酐"
+    aliases: ["CREA", "CRE", "肌酐", "Cr"]
+    default_unit: "umol/L"
+    species:
+      dog: {low: 44, high: 159, unit: "umol/L", critical_low: null, critical_high: 450}
+      cat: {low: 71, high: 212, unit: "umol/L", critical_low: null, critical_high: 450}
+  BUN:
+    display_name: "尿素氮"
+    aliases: ["BUN", "UREA", "尿素氮", "尿素"]
+    default_unit: "mmol/L"
+    species:
+      dog: {low: 2.5, high: 9.6, unit: "mmol/L", critical_low: null, critical_high: 25}
+      cat: {low: 5.7, high: 12.9, unit: "mmol/L", critical_low: null, critical_high: 30}
+  GLU:
+    display_name: "血糖"
+    aliases: ["GLU", "Glu", "葡萄糖", "血糖"]
+    default_unit: "mmol/L"
+    species:
+      dog: {low: 3.3, high: 6.7, unit: "mmol/L", critical_low: 2.2, critical_high: 18}
+      cat: {low: 3.9, high: 8.3, unit: "mmol/L", critical_low: 2.2, critical_high: 20}
+  TP:
+    display_name: "总蛋白"
+    aliases: ["TP", "总蛋白"]
+    default_unit: "g/L"
+    species:
+      dog: {low: 52, high: 82, unit: "g/L", critical_low: 35, critical_high: 100}
+      cat: {low: 57, high: 89, unit: "g/L", critical_low: 35, critical_high: 105}
+  ALB:
+    display_name: "白蛋白"
+    aliases: ["ALB", "白蛋白"]
+    default_unit: "g/L"
+    species:
+      dog: {low: 23, high: 40, unit: "g/L", critical_low: 15, critical_high: 55}
+      cat: {low: 25, high: 39, unit: "g/L", critical_low: 15, critical_high: 55}
